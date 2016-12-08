@@ -1,0 +1,25 @@
+#!/bin/bash
+#-------------------------------
+# 功能: zip iPhone project
+# 详细描述: iPhoneSourceCode 打包
+# 注意: 文件路径是定死的
+# 作者: watermelon
+# E-mail: watermelonzhang@163.com
+# 创建日期: 2016/12/08
+#-------------------------------
+
+projectDir="/Users/allone/IOSWorkSpace/VerBank-IPhoneClientStation/VerBank-IOSClientStation/"
+cd $projectDir
+if [ -d ./build/ ];then
+	rm -rfv build/
+	echo "delete success" >> log.file
+	else
+	echo "directory is not exist : "$(pwd)"/build/" >> log.file
+fi
+
+cd ../.. 
+
+zipName=iPhoneSource$(date +"%Y%m%d")
+
+zip -r $zipName.zip ./VerBank-IPhoneClientStation/VerBank-IOSClientStation/ ./VerBank-IPhoneClientStation/VerBank-CSTSv3-IOSClientApi/
+

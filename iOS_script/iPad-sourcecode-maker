@@ -1,0 +1,25 @@
+#!/bin/bash
+#-------------------------------
+# 功能: zip iPad project
+# 详细描述: iPadSourceCode 打包
+# 注意: 文件路径是定死的
+# 作者: watermelon
+# E-mail: watermelonzhang@163.com
+# 创建日期: 2016/12/08
+#-------------------------------
+
+projectDir="/Users/allone/IOSWorkSpace/VerBank-IPadClientStation/VerBank-IPadClientStation/"
+cd $projectDir
+if [ -d ./build/ ];then
+	rm -rfv build/
+	echo "delete success"
+else
+	echo "directory is not exist : "$(pwd)"/build/" >> log.file
+fi
+
+cd ../.. 
+
+zipName=iPadSource$(date +"%Y%m%d")
+
+zip -r $zipName.zip ./VerBank-IPadClientStation/VerBank-IPadClientStation/ ./VerBank-IPadClientStation/VerBank-CSTSv3-IOSClientApi/
+

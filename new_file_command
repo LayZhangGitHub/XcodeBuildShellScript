@@ -1,0 +1,53 @@
+#!/bin/bash
+#-------------------------------
+# 功能: create file test
+# 详细描述: 创建文件
+# 注意: 
+# 作者: watermelon
+# E-mail: watermelonzhang@163.com
+# 创建日期: 2016/11/03
+#-------------------------------
+
+# 切换到 脚本所在目录
+# basepath=$(cd `dirname $0`; pwd)
+# cd $basepath
+cd `dirname $0`
+
+shell_file_index=1
+
+for name in $(ls shellTest*);do
+	let shell_file_index+=1
+done
+
+new_file_name=""
+
+if [ $shell_file_index -le 9 ]; then
+	new_file_name="shellTest0$shell_file_index"
+else 
+	new_file_name="shellTest$shell_file_index"
+fi
+
+echo `pwd`
+
+# 添加 可执行权限
+touch $new_file_name
+chmod +x $new_file_name
+
+echo "#!/bin/bash" >> $new_file_name
+echo "#-------------------------------" >> $new_file_name
+echo "# 功能: " >> $new_file_name
+echo "# 详细描述: " >>$new_file_name
+echo "# 注意: " >> $new_file_name
+echo "# 作者: watermelon" >> $new_file_name
+echo "# E-mail: watermelonzhang@163.com" >> $new_file_name
+echo "# 创建日期: `date +%Y/%m/%d`" >> $new_file_name
+echo "#-------------------------------" >> $new_file_name
+
+
+# echo -E "basepath=\$(cd \`dirname \$0\`; pwd)" >> $new_file_name
+# echo "cd \$basepath" >> $new_file_name
+echo "cd \`dirname \$0\`" >> $new_file_name
+
+
+
+echo "file : $new_file_name created"
