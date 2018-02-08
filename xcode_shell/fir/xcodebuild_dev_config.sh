@@ -33,7 +33,7 @@ fi
 xcodebuild -$work_type ${work_path}/$workspace_name -scheme $target_name -configuration Debug -sdk iphoneos clean
 xcodebuild archive -$work_type ${work_path}/$workspace_name -scheme $target_name -configuration Debug -archivePath ${out_path}/$target_name.xcarchive
 
-xcodebuild -exportArchive -archivePath ${out_path}/$target_name.xcarchive -exportPath ${out_path} -exportOptionsPlist ${sctipt_path}/xcodebuild_dev_config.plist
+xcodebuild -exportArchive -archivePath ${out_path}/$target_name.xcarchive -exportPath ${out_path} -exportOptionsPlist ${sctipt_path}/xcodebuild_dev_config.plist -allowProvisioningUpdates
 
 echo ${out_path}/$target_name.ipa
 
