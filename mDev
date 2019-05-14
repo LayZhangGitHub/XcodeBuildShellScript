@@ -1,0 +1,89 @@
+#!/bin/bash
+
+#
+# mDev <workspace name> [-o <open file path>] [-u] [-s <open source tree>] [-w] [-p]
+#
+# example
+# mDev dev1 -o beidian_home 	打开finder
+# mDev dev1 -u					update
+# mDev dev1 -s beidian_tree		open sourcetree
+# mDev dev1 -w					open workspace
+# mDev dev1 -p					open podfile.local
+
+if [ $# -lt 1 ];then
+	echo "input err"
+	exit 2
+fi
+
+# 多个工作空间
+my_dev_pwd1='/Users/zhanglei/Desktop/workspace/beidian/beidian'
+my_dev_pwd2='/Users/zhanglei/Desktop/beibeiWorkspace2/beidian/beidian'
+
+case $1 in
+	"dev1")
+	cd $my_dev_pwd1
+	;;
+	"dev2")
+	cd $my_dev_pwd2
+	;;
+	*)
+	echo "dev not exists"
+	exit
+	;;
+esac
+
+param_pattern=":o:us:wp"
+OPTIND=2
+while getopts $param_pattern optname
+  do 
+    case $optname in
+	  "o")
+	  if [ ! -d $OPTARG ];then
+	  echo "open file path not exists"
+	  exit
+	    else
+		# todo open 
+		open $OPTARG
+	  fi
+	;;
+	 "u")
+	 if [ ! -d $OPTARG ];then
+	  echo "update file path not exists"
+	  exit
+	    else
+		env PODFILE_TYPE=DEV pod update
+	  fi
+	;;
+	"s")
+	 if [ ! -d $OPTARG ];then
+	  echo "open sourcetree file path not exists"
+	  exit
+	    else
+		cd $OPTARG
+		open -a SourceTree ./
+	  fi
+	;;
+	"w")
+	 if [ ! -d 'BeiDianAPP.xcworkspace' ];then
+	  echo "open workspace not exists"
+	  exit
+	    else
+		open BeiDianAPP.xcworkspace
+	  fi
+	;;
+	"p")
+	 if [ ! -f 'Podfile.local' ];then
+	  echo "Podfile not exists"
+	  exit
+	    else
+		open Podfile.local
+	  fi
+	;;
+	*)
+    echo "input error"
+	exit
+    ;;
+  esac
+done
+
+echo 'done'
